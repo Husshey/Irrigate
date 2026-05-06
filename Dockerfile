@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -y \
     libapache2-mod-php8.1 \
     php8.1-mysqli \
     && rm -rf /var/lib/apt/lists/*
+RUN rm /var/www/html/index.html
 COPY . /var/www/html/
 RUN chown -R www-data:www-data /var/www/html
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
