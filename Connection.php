@@ -1,9 +1,9 @@
 <?php
-$conn = new mysqli(
-    getenv('MYSQL_HOST') ?: 'mysql.railway.internal',
-    getenv('MYSQL_USER') ?: 'root',
-    getenv('MYSQL_PASS') ?: '',
-    getenv('MYSQL_DB')   ?: 'railway'
-);
+$host = getenv('MYSQLHOST') ?: 'localhost';
+$user = getenv('MYSQLUSER') ?: 'root';
+$pass = getenv('MYSQLPASSWORD') ?: '';
+$db   = getenv('MYSQLDATABASE') ?: 'irrigation_db';
+
+$conn = new mysqli($host, $user, $pass, $db);
 if ($conn->connect_error) $conn = null;
 ?>
