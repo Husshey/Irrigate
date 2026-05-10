@@ -614,6 +614,40 @@ footer span { color: var(--green); font-weight: 700; }
 ::-webkit-scrollbar-track { background: var(--bg3); }
 ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--green3); }
+
+@media(max-width:480px) {
+  header {
+    padding: 0 12px;
+    height: auto;
+    flex-wrap: wrap;
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .brand-name { font-size: 1rem; }
+  .brand-logo { width: 34px; height: 34px; font-size: 1.1rem; }
+
+  .nav-tab { padding: 6px 12px; font-size: 0.72rem; }
+
+  .live-badge { font-size: 0.55rem; padding: 5px 10px; }
+
+  .dn-filter-btn { font-size: 0.65rem; padding: 5px 10px; }
+
+  .hero-title { font-size: 1.8rem; }
+
+  .metric-val { font-size: 2.2rem; }
+
+  .wrap { padding: 16px 12px 60px; }
+
+  .card { padding: 16px; }
+
+  .th-split { grid-template-columns: 1fr; }
+
+  .tank-big { font-size: 1.8rem; }
+
+  .pump-label { font-size: 1.6rem; }
+}
+
 </style>
 </head>
 <body>
