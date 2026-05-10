@@ -1,5 +1,28 @@
 <?php
-// ── JSON endpoint for live updates ──
+
+// ── INSERT endpoint for IoT ──
+if (isset($_GET['insert'])) {
+    header('Content-Type: application/json');
+    require_once 'Connection.php';
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $conn) {
+        $s1 = floatval($_POST['soil1_moisture'] ?? 0);
+        $s2 = intval($_POST['soil2_wet']        ?? 0);
+        $t  = floatval($_POST['temperature']    ?? 0);
+        $h  = floatval($_POST['humidity']       ?? 0);
+        $w  = floatval($_POST['water_level_cm'] ?? 0);
+        $p  = intval($_POST['pump_status']      ?? 0);
+        $stmt = $conn->prepare("INSERT INTO sensor_readings (soil1_moisture,soil2_wet,temperature,humidity,water_level_cm,pump_status) VALUES (?,?,?,?,?,?)");
+        $stmt->bind_param("diiddi",$s1,$s2,$t,$h,$w,$p);
+        $stmt->execute();
+        $stmt->close();
+        $conn->close();
+        echo json_encode(['status'=>'OK']);
+    } else {
+        echo json_encode(['status'=>'error','msg'=>$conn ? 'not POST' : 'no db']);
+    }
+    exit;
+}
+
 if (isset($_GET['fetch'])) {
     header('Content-Type: application/json');
     require_once 'Connection.php';
