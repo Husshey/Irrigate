@@ -3,8 +3,14 @@
 // ── INSERT endpoint for IoT ──
 if (isset($_GET['insert'])) {
     header('Content-Type: application/json');
-    require_once 'Connection.php';
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $conn) {
+    mysqli_report(MYSQLI_REPORT_OFF);
+    $host = getenv('MYSQLHOST')      ?: 'localhost';
+    $port = (int)(getenv('MYSQLPORT') ?: 3306);
+    $user = getenv('MYSQLUSER')      ?: 'root';
+    $pass = getenv('MYSQLPASSWORD')  ?: '';
+    $db   = getenv('MYSQL_DATABASE') ?: 'railway';
+    $conn = new mysqli($host, $user, $pass, $db, $port);
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$conn->connect_error) {
         $s1 = floatval($_POST['soil1_moisture'] ?? 0);
         $s2 = intval($_POST['soil2_wet']        ?? 0);
         $t  = floatval($_POST['temperature']    ?? 0);
