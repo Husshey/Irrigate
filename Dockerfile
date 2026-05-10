@@ -12,7 +12,9 @@ RUN rm -rf /var/www/html/*
 
 COPY . /var/www/html/
 
-# This will print files during build so we can see what's there
+# ✅ Add this line — removes the default Apache page
+RUN rm -f /var/www/html/index.html
+
 RUN ls -la /var/www/html/
 
 RUN chown -R www-data:www-data /var/www/html && \
