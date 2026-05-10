@@ -12,6 +12,9 @@ RUN apt-get update && apt-get install -y \
     php8.3-mysqli \
     php8.3-zip \
     php8.3-xml \
+    php8.3-mbstring \
+    php8.3-gd \
+    php8.3-intl \
     && rm -rf /var/lib/apt/lists/*
 
 RUN rm -rf /var/www/html/*
