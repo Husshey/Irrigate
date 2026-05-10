@@ -15,7 +15,13 @@ if (isset($_GET['fetch'])) {
 // ── JSON endpoint for time log history ──
 if (isset($_GET['log'])) {
     header('Content-Type: application/json');
-    require_once 'Connection.php';
+   $host = getenv('MYSQLHOST')      ?: 'localhost';
+$port = (int)(getenv('MYSQLPORT') ?: 3306);
+$user = getenv('MYSQLUSER')      ?: 'root';
+$pass = getenv('MYSQLPASSWORD')  ?: '';
+$db   = getenv('MYSQL_DATABASE') ?: 'irrigation_db';
+$conn = new mysqli($host, $user, $pass, $db, $port);
+if ($conn->connect_error) $conn = null;
     $logs = [];
     if (!empty($conn)) {
         $result = $conn->query("SELECT soil1_moisture, soil2_wet, temperature, humidity, water_level_cm, pump_status, created_at FROM sensor_readings ORDER BY created_at DESC LIMIT 200");
