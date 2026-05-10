@@ -1,4 +1,4 @@
-<?php
+<?php // 
 
 // ── INSERT endpoint for IoT ──
 if (isset($_GET['insert'])) {
