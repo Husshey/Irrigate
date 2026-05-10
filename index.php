@@ -40,7 +40,7 @@ $db   = getenv('MYSQL_DATABASE') ?: 'railway';
 $conn = new mysqli($host, $user, $pass, $db, $port);
 if ($conn->connect_error) $conn = null;
     $data = ['soil1_moisture'=>0,'soil2_wet'=>0,'temperature'=>0,'humidity'=>0,'water_level_cm'=>0,'pump_status'=>0,'created_at'=>null];
-    if (!empty($conn)) {
+    if ($conn && !$conn->connect_error) {
         $result = $conn->query("SELECT soil1_moisture, soil2_wet, temperature, humidity, water_level_cm, pump_status, created_at FROM sensor_readings ORDER BY created_at DESC LIMIT 1");
         if ($result && $result->num_rows > 0) $data = $result->fetch_assoc();
         $conn->close();
@@ -60,7 +60,7 @@ $db   = getenv('MYSQL_DATABASE') ?: 'railway';
 $conn = new mysqli($host, $user, $pass, $db, $port);
 if ($conn->connect_error) $conn = null;
     $logs = [];
-    if (!empty($conn)) {
+   if ($conn && !$conn->connect_error) {
         $result = $conn->query("SELECT soil1_moisture, soil2_wet, temperature, humidity, water_level_cm, pump_status, created_at FROM sensor_readings ORDER BY created_at DESC LIMIT 200");
         if ($result && $result->num_rows > 0) while ($row = $result->fetch_assoc()) $logs[] = $row;
         $conn->close();
