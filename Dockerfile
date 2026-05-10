@@ -20,6 +20,8 @@ RUN ls -la /var/www/html/
 RUN chown -R www-data:www-data /var/www/html && \
     echo "ServerName localhost" >> /etc/apache2/apache2.conf && \
     a2enmod php8.1
+RUN echo "DirectoryIndex index.php index.html" >> /etc/apache2/apache2.conf
 
 EXPOSE 80
 CMD ["apache2ctl", "-D", "FOREGROUND"]
+
