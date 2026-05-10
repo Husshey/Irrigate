@@ -31,7 +31,14 @@ if (isset($_GET['insert'])) {
 
 if (isset($_GET['fetch'])) {
     header('Content-Type: application/json');
-    require_once 'Connection.php';
+   mysqli_report(MYSQLI_REPORT_OFF);
+$host = getenv('MYSQLHOST') ?: 'localhost';
+$port = (int)(getenv('MYSQLPORT') ?: 3306);
+$user = getenv('MYSQLUSER') ?: 'root';
+$pass = getenv('MYSQLPASSWORD') ?: '';
+$db   = getenv('MYSQL_DATABASE') ?: 'railway';
+$conn = new mysqli($host, $user, $pass, $db, $port);
+if ($conn->connect_error) $conn = null;
     $data = ['soil1_moisture'=>0,'soil2_wet'=>0,'temperature'=>0,'humidity'=>0,'water_level_cm'=>0,'pump_status'=>0,'created_at'=>null];
     if (!empty($conn)) {
         $result = $conn->query("SELECT soil1_moisture, soil2_wet, temperature, humidity, water_level_cm, pump_status, created_at FROM sensor_readings ORDER BY created_at DESC LIMIT 1");
@@ -44,7 +51,14 @@ if (isset($_GET['fetch'])) {
 // ── JSON endpoint for time log history ──
 if (isset($_GET['log'])) {
     header('Content-Type: application/json');
-    require_once 'Connection.php';
+    mysqli_report(MYSQLI_REPORT_OFF);
+$host = getenv('MYSQLHOST') ?: 'localhost';
+$port = (int)(getenv('MYSQLPORT') ?: 3306);
+$user = getenv('MYSQLUSER') ?: 'root';
+$pass = getenv('MYSQLPASSWORD') ?: '';
+$db   = getenv('MYSQL_DATABASE') ?: 'railway';
+$conn = new mysqli($host, $user, $pass, $db, $port);
+if ($conn->connect_error) $conn = null;
     $logs = [];
     if (!empty($conn)) {
         $result = $conn->query("SELECT soil1_moisture, soil2_wet, temperature, humidity, water_level_cm, pump_status, created_at FROM sensor_readings ORDER BY created_at DESC LIMIT 200");
