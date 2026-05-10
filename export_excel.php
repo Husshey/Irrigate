@@ -1,9 +1,8 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
+ob_start();
+ini_set('display_errors', 0);
 require_once 'vendor/autoload.php';
 require_once 'Connection.php';
-
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Style\{Alignment, Border, Color, Fill, Font};
@@ -142,6 +141,9 @@ $sheet->getStyle('A1')->applyFromArray([
                     'vertical'   => Alignment::VERTICAL_CENTER],
 ]);
 $sheet->getRowDimension(1)->setRowHeight(24);
+
+ob_end_clean();
+header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 
 /* ═══ OUTPUT ═══ */
 $filename = 'irrisense_readings_' . date('Y-m-d') . '.xlsx';
