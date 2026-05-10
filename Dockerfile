@@ -22,7 +22,7 @@ RUN rm -rf /var/www/html/*
 COPY . /var/www/html/
 
 RUN rm -f /var/www/html/index.html
-
+RUN cat /var/www/html/index.php | head -5
 RUN chown -R www-data:www-data /var/www/html && \
     echo "ServerName localhost" >> /etc/apache2/apache2.conf && \
     echo "DirectoryIndex index.php index.html" >> /etc/apache2/apache2.conf && \
