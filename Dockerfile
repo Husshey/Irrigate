@@ -25,7 +25,7 @@ RUN rm -f /var/www/html/index.html
 RUN cat /var/www/html/index.php | head -5
 RUN chown -R www-data:www-data /var/www/html && \
     echo "ServerName localhost" >> /etc/apache2/apache2.conf && \
-    echo "DirectoryIndex index.php index.html" >> /etc/apache2/apache2.conf && \
+    sed -i 's/DirectoryIndex index.html/DirectoryIndex index.php index.html/' /etc/apache2/mods-enabled/dir.conf && \
     a2enmod php8.3
 
 EXPOSE 80
