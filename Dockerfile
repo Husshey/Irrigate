@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y \
 RUN rm -rf /var/www/html/*
 
 COPY . /var/www/html/
-
+RUN ln -sf /usr/share/zoneinfo/Asia/Manila /etc/localtime
 RUN rm -f /var/www/html/index.html
 RUN cat /var/www/html/index.php | head -5
 RUN chown -R www-data:www-data /var/www/html && \
